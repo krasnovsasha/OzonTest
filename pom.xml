@@ -25,6 +25,9 @@
         <assertj-core.version>3.8.0</assertj-core.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
+
+        <slf4j-nop.version>1.7.13</slf4j-nop.version>
+
     </properties>
 
     <dependencies>
@@ -57,6 +60,12 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber5-jvm</artifactId>
             <version>${allure-cucumber-jvm.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>${slf4j-nop.version}</version>
         </dependency>
 
     </dependencies>
