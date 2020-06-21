@@ -4,7 +4,6 @@ import annotations.FieldName;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DriverSettings;
 import org.openqa.selenium.interactions.Actions;
@@ -28,14 +27,6 @@ public abstract class BasePage {
 		return DriverSettings.getWait().until(ExpectedConditions.elementToBeClickable(element));
 	}
 
-	protected void click(WebElement element){
-		waitClickable(element).click();
-	}
-
-	protected WebElement findElement(By by) {
-		return DriverSettings.getDriver().findElement(by);
-	}
-
 	protected void moveToElement(WebElement element) {
 		Actions actions = new Actions(DriverSettings.getDriver());
 		actions.moveToElement(element).perform();
@@ -57,7 +48,7 @@ public abstract class BasePage {
 		fluentWait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
-	public WebElement getField(String name, String className) {
+	protected WebElement getField(String name, String className) {
 		Class example = null;
 		try {
 			example = Class.forName(className);
@@ -75,7 +66,7 @@ public abstract class BasePage {
 	}
 
 
-	public void waitToRefreshByText(WebElement element) {
+	protected void waitToRefreshByText(WebElement element) {
 		try {
 			WebDriverWait wdw = new WebDriverWait(DriverSettings.getDriver(), 10);
 			String textBefore  = element.getText();
@@ -90,35 +81,15 @@ public abstract class BasePage {
 		}
 	}
 
-	public void waitToRefreshByValue(WebElement element) {
-		try {
-			WebDriverWait wdw = new WebDriverWait(DriverSettings.getDriver(), 10);
-			String valueBefore  = element.getAttribute("value");
-			System.out.println("valueBefore : " + valueBefore);
-			wdw.until(driver -> {
-				String valueAfter = element.getAttribute("value");
-				System.out.println("valueAfter : " + valueAfter);
-				return valueAfter != valueBefore;
-			});
-		} catch (org.openqa.selenium.TimeoutException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void clearField(WebElement field) {
+	protected void clearField(WebElement field) {
 		field.click();
 		field.sendKeys(Keys.CONTROL + "a");
 		field.sendKeys(Keys.BACK_SPACE);
 	}
 
-	public void inputField(WebElement field, String value){
+	protected void inputField(WebElement field, String value){
 		field.clear();
 		field.sendKeys(value);
 		field.sendKeys(Keys.ENTER);
 	}
-
-
-
-
-
 }

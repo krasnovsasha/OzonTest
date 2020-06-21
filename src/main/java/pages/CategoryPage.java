@@ -4,6 +4,8 @@ import annotations.FieldName;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryPage extends BasePage {
@@ -18,36 +20,25 @@ public class CategoryPage extends BasePage {
 	@FieldName(name = "NFC")
 	public WebElement NFC;
 	@FindBy(xpath = "(//div[@data-widget='searchResultsV2'])")
-	public WebElement resultForm;
-	@FindBy(xpath = "(//div[@data-widget='searchResultsV2']//div[contains(text(),'В корзину')])[1]")
-	public WebElement resultFormItem;
-	@FindBy(xpath = "(//div[@data-widget='searchResultsV2']//div[contains(text(),'В корзину')])[1]/parent::div/parent::button")
-	public WebElement buttonAddToCart;
+	private WebElement resultForm;
 	@FindBy(xpath = "(//div[@data-widget='searchResultsV2']//div[contains(text(),'В корзину')])/parent::div/parent::button")
-	public List<WebElement> resultList;
-	@FindBy(xpath = "//div[@data-widget='searchResultsSort']//span[contains(text(),'Высокий рейтинг')]")
-	public WebElement hightRatingResult;
-	@FindBy(xpath = "//a[@href='/cart']")
-	public WebElement cart;
+	private List<WebElement> resultList;
+	@FindBy(xpath = "(//div[@data-widget='searchResultsV2'])//a[@class=\"a2x5 tile-hover-target\"]")
+	private List<WebElement> resultWithNames;
 	@FindBy(xpath = "(//span[contains(text(),'Посмотреть все')])[1]")
-	public WebElement showAllBrands;
+	private WebElement showAllBrands;
 	@FindBy(xpath = "(//input[@class='ui-av9 ui-av4'])[1]")
-	public WebElement brandsInput;
+	private WebElement brandsInput;
 	@FindBy(xpath = "//span[contains(text(),'Samsung')]")
 	@FieldName(name = "Samsung")
 	public WebElement samsungCheckBox;
 	@FindBy(xpath = "(//span[contains(text(),'Xiaomi')])[4]")
 	@FieldName(name = "Xiaomi")
 	public WebElement xiaomiCheckBox;
+	public static ArrayList<String> itemsAndNames = new ArrayList<>();
 
 	public CategoryPage waitLeftMenuClickable() {
 		waitUntilElementToBeClickable(leftOptionsMenu);
-		return this;
-	}
-
-	public CategoryPage waitShowAllBrandsClickableAndClick(){
-		waitUntilElementToBeClickable(showAllBrands);
-		showAllBrands.click();
 		return this;
 	}
 
@@ -92,7 +83,12 @@ public class CategoryPage extends BasePage {
 			brand.click();
 			waitUntilElementToBeClickable(resultForm);
 		} catch (StaleElementReferenceException e) {
-
+			waitUntilElementToBeClickable(brandsInput);
+			clearField(brandsInput);
+			brandsInput.sendKeys(brandName);
+			waitUntilElementToBeClickable(brand);
+			brand.click();
+			waitUntilElementToBeClickable(resultForm);
 		}
 
 	}
@@ -103,19 +99,26 @@ public class CategoryPage extends BasePage {
 
 	public void addItemsToCart(int count) {
 		int c = 0;
+		ArrayList<WebElement> arrList = new ArrayList<>(resultWithNames);
 		for (WebElement el : resultList) {
 			try {
 				if (c %2 != 0 && count > 0) {
 					waitUntilElementToBeVisible(el);
 					waitUntilElementToBeClickable(el);
 					el.click();
+					itemsAndNames.add(arrList.get(c).getText());
 					c++;
 					count--;
 				} else {
 					c++;
 				}
 			} catch (StaleElementReferenceException e) {
-				addItemsToCart(count);
+				waitUntilElementToBeVisible(el);
+				waitUntilElementToBeClickable(el);
+				el.click();
+				itemsAndNames.add(arrList.get(c).getText());
+				c++;
+				count--;
 			}
 		}
 	}

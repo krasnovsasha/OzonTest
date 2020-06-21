@@ -29,23 +29,19 @@ public class CategoryPageSteps {
 
 	@When("Из результатов поиска добавьте в корзину первые {int} нечетных товаров")
 	public void addItemToBasket(Integer count) {
-		cp.waitResultFormClickable();
-		cp.addItemsToCart(count);
+		cp.waitResultFormClickable()
+				.addItemsToCart(count);
+
 	}
 
 	@When("Из результатов поиска добавьте в корзину все четные товары")
 	public void addItemToBasket(){
-		cp.waitResultFormClickable();
-		cp.addItemsToCart();
+		cp.waitResultFormClickable()
+				.addItemsToCart();
+
 	}
 
-//	@When("Запомнить название товаров")
-//	public void запомнить_название_товаров() {
-//		// Write code here that turns the phrase above into concrete actions
-//
-//	}
-
-	@When("Перейдите в корзину, убедитесь, что все добавленные ранее товары находятся в корзине")
+	@When("Перейдите в корзину")
 	public void goToCart() {
 		cp.cart.click();
 	}
