@@ -43,16 +43,16 @@ public abstract class BasePage {
 
 	protected static void waitUntilElementToBeVisible(WebElement element) {
 		fluentWait = new FluentWait<>(DriverSettings.getDriver())
-				.withTimeout(Duration.ofMillis(10000))
-				.pollingEvery(Duration.ofMillis(1000))
+				.withTimeout(Duration.ofMillis(25000))
+				.pollingEvery(Duration.ofMillis(500))
 				.ignoring(NoSuchElementException.class);
 		fluentWait.until(ExpectedConditions.visibilityOf(element));
 	}
 
 	protected static void waitUntilElementToBeClickable(WebElement element) {
 		fluentWait = new FluentWait<>(DriverSettings.getDriver())
-				.withTimeout(Duration.ofMillis(10000))
-				.pollingEvery(Duration.ofMillis(1000))
+				.withTimeout(Duration.ofMillis(25000))
+				.pollingEvery(Duration.ofMillis(500))
 				.ignoring(NoSuchElementException.class);
 		fluentWait.until(ExpectedConditions.elementToBeClickable(element));
 	}

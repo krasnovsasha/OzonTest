@@ -14,6 +14,14 @@ public class CategoryPageSteps {
 				.choosePrice(string);
 
 	}
+
+	@When("Бренды : {string}, {string}, {string}")
+	public void chooseBrands(String brand1,String brand2,String brand3){
+		cp.waitUntilAllBrandsClickAble();
+		cp.insertToBrandsInput(brand2,cp.samsungCheckBox);
+		cp.insertToBrandsInput(brand3,cp.xiaomiCheckBox);
+	}
+
 	@When("Отметить чекбокс – {string}")
 	public void clickCheckBox(String string) {
 			cp.clickCheckbox(string);
@@ -24,6 +32,13 @@ public class CategoryPageSteps {
 		cp.waitResultFormClickable();
 		cp.addItemsToCart(count);
 	}
+
+	@When("Из результатов поиска добавьте в корзину все четные товары")
+	public void addItemToBasket(){
+		cp.waitResultFormClickable();
+		cp.addItemsToCart();
+	}
+
 //	@When("Запомнить название товаров")
 //	public void запомнить_название_товаров() {
 //		// Write code here that turns the phrase above into concrete actions

@@ -18,13 +18,12 @@ public class BasketPageSteps {
 		String actual = sb.toString();
 		Assert.assertEquals("Не отображается текст " + count,count,actual);
 	}
-//	@When("Удалите все товары из корзины")
-//	public void delItems() {
-//
-//	}
-//	@When("Проверьте, что корзина не содержит никаких товаров")
-//	public void проверьте_что_корзина_не_содержит_никаких_товаров() {
-//		// Write code here that turns the phrase above into concrete actions
-//
-//	}
+	@When("Удалите все товары из корзины")
+	public void delItems() {
+		bp.delItems();
+	}
+	@When("Проверьте, что корзина не содержит никаких товаров")
+	public void checkCartIsEmpty() {
+		Assert.assertEquals("Корзина не пустая ",true,bp.checkCartIsEmpty());
+	}
 }
