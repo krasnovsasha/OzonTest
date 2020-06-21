@@ -1,22 +1,25 @@
-//package pageSteps;
-//
-//import io.cucumber.java.en.When;
-//
-//public class BasketPageSteps {
-//
-//	@When("Перейдите в корзину, убедитесь, что все добавленные ранее товары находятся в корзине")
-//	public void перейдите_в_корзину_убедитесь_что_все_добавленные_ранее_товары_находятся_в_корзине() {
-//		// Write code here that turns the phrase above into concrete actions
-//
-//	}
-//	@When("Проверить, что отображается текст {string}")
-//	public void проверить_что_отображается_текст_Ваша_корзина_товаров(Double double1, Integer int1) {
-//		// Write code here that turns the phrase above into concrete actions
-//
-//	}
+package pageSteps;
+
+import io.cucumber.java.en.When;
+import org.junit.Assert;
+import pages.BasketPage;
+
+public class BasketPageSteps {
+	BasketPage bp = new BasketPage();
+
+	@When("Проверить, что отображается текст {string} - {string}")
+	public void checkText(String text, String count) {
+		String textActual = bp.getTextElement(bp.cartText);
+		Assert.assertEquals("Не отображается текст " + text,text,textActual);
+		String countActual = bp.getTextElement(bp.countItems);
+		String[] str = countActual.split(" ");
+		StringBuilder sb = new StringBuilder();
+		sb.append(str[0]).append(" ").append(str[1]);
+		String actual = sb.toString();
+		Assert.assertEquals("Не отображается текст " + count,count,actual);
+	}
 //	@When("Удалите все товары из корзины")
-//	public void удалите_все_товары_из_корзины() {
-//		// Write code here that turns the phrase above into concrete actions
+//	public void delItems() {
 //
 //	}
 //	@When("Проверьте, что корзина не содержит никаких товаров")
@@ -24,4 +27,4 @@
 //		// Write code here that turns the phrase above into concrete actions
 //
 //	}
-//}
+}

@@ -14,9 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class DriverSettings {
 	private static WebDriver driver;
 	private static WebDriverWait wait;
-
 	private static Properties properties = SingleProperty.getInstance().getProperties();
-//	protected static String urlMainPage;
 
 	public static WebDriver getDriver() {
 		return driver;
@@ -25,14 +23,18 @@ public class DriverSettings {
 	public static WebDriverWait getWait() {
 		return wait;
 	}
+
 	@Before
 	public static void setUp() {
 		setUpBrowser(System.getProperty("browser", "chrome"));
-//		urlMainPage = properties.getProperty("indexURL");
 		driver.manage().window().maximize();
-		driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
-		wait = new WebDriverWait(driver, 20);
-//		driver.get(urlMainPage);
+		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+		wait = new WebDriverWait(driver, 25);
+	}
+
+	@After
+	public static void tearDown() {
+		driver.quit();
 	}
 
 	private static void setUpBrowser(String browserName) {
@@ -83,9 +85,4 @@ public class DriverSettings {
 				break;
 		}
 	}
-	@After
-	public static void tearDown() {
-		driver.quit();
-	}
 }
-
