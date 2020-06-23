@@ -23,8 +23,10 @@ public class CategoryPage extends BasePage {
 	private WebElement resultForm;
 	@FindBy(xpath = "(//div[@data-widget='searchResultsV2']//div[contains(text(),'В корзину')])/parent::div/parent::button")
 	private List<WebElement> resultList;
-	@FindBy(xpath = "(//div[@data-widget='searchResultsV2'])//a[@class=\"a2x5 tile-hover-target\"]")
-	private List<WebElement> resultWithNames;
+	@FindBy(xpath = "(//div[@data-widget='searchResultsV2'])//a[contains(text(),'Смартфон')]")
+	public List<WebElement> resultWithNames;
+	@FindBy(xpath = "//a[@href='/cart']")
+	public WebElement cart;
 	@FindBy(xpath = "(//span[contains(text(),'Посмотреть все')])[1]")
 	private WebElement showAllBrands;
 	@FindBy(xpath = "(//input[@class='ui-av9 ui-av4'])[1]")

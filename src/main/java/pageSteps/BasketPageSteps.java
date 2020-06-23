@@ -4,19 +4,21 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import pages.BasketPage;
 import pages.CategoryPage;
+import utils.AllureUtils;
 
 public class BasketPageSteps {
 	BasketPage bp = new BasketPage();
 
 	@When("Убедитесь, что все добавленные ранее товары находятся в корзине")
 	public void checkItemsInCart(){
+		AllureUtils.takeScreenShot();
 		for (String s: CategoryPage.itemsAndNames) {
 			System.out.println(s);
 		}
-		bp.addIt();
-		for (String s1: BasketPage.arrList1) {
-			System.out.println(s1);
-		}
+//		bp.addIt();
+//		for (String s1: BasketPage.arrList1) {
+//			System.out.println(s1);
+//		}
 	}
 
 	@When("Проверить, что отображается текст {string} - {string}")
